@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA CRISTALINA | Gestión Ganadera</title>
+<style>
+:root {
+  --verde:#245c42;
+  --verde2:#367b55;
+  --fondo:#f4f7f4;
+  --blanco:#ffffff;
+  --texto:#26382d;
+  --gris:#718078;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fondo);
+  color:var(--texto);
+}
+.layout {display:flex;min-height:100vh}
+.sidebar {
+  width:245px;
+  background:var(--verde);
+  color:white;
+  padding:25px 16px;
+  flex-shrink:0;
+}
+.brand {font-size:23px;font-weight:bold;margin:8px 10px}
+.subtitle {font-size:12px;color:#d3e4d8;margin:8px 10px 30px}
+.menu-title {
+  font-size:11px;color:#b9d2c1;
+  margin:24px 10px 10px;text-transform:uppercase;
+}
+.menu a {
+  display:block;padding:12px 13px;
+  color:#eaf3ec;text-decoration:none;
+  border-radius:8px;margin:4px 0;font-size:14px;
+}
+.menu a:hover,.menu a.active {background:#ffffff25}
+.main {flex:1;min-width:0;padding:28px}
+.top {
+  display:flex;justify-content:space-between;
+  align-items:center;gap:15px;flex-wrap:wrap;
+  margin-bottom:27px;
+}
+h1 {font-size:25px;margin:0 0 7px}
+.muted {color:var(--gris);font-size:14px}
+.date {color:var(--gris);font-size:13px}
+.cards {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;margin-bottom:25px;
+}
+.card,.panel {
+  background:white;border-radius:13px;
+  padding:20px;box-shadow:0 2px 10px #203c2810;
+}
+.card .label {font-size:13px;color:var(--gris)}
+.card .number {font-size:29px;font-weight:bold;margin:12px 0 5px}
+.card .note {font-size:12px;color:var(--verde2)}
+.content {
+  display:grid;grid-template-columns:1.5fr 1fr;gap:18px;
+}
+.panel h2 {font-size:17px;margin:0 0 18px}
+table {width:100%;border-collapse:collapse;font-size:13px}
+th,td {padding:13px 8px;text-align:left;border-bottom:1px solid #edf0ed}
+th {color:var(--gris);font-weight:normal}
+.status {
+  background:#e8f4eb;color:#287348;
+  border-radius:20px;padding:5px 9px;font-size:11px;
+}
+.actions {display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action {
+  padding:15px 10px;border:1px solid #e5ebe6;
+  background:#fbfdfb;border-radius:10px;
+  color:var(--verde);font-weight:bold;
+  cursor:pointer;text-align:center;
+}
+.action:hover {background:#eaf4ec}
+.notice {
+  padding:13px;background:#f0f6f1;
+  border-radius:9px;margin-top:12px;
+  font-size:13px;line-height:1.5;
+}
+.footer {margin-top:25px;color:var(--gris);font-size:12px}
+@media(max-width:900px) {
+  .cards {grid-template-columns:repeat(2,1fr)}
+  .content {grid-template-columns:1fr}
+}
+@media(max-width:600px) {
+  .layout {display:block}
+  .sidebar {width:100%;padding:15px}
+  .brand {font-size:20px}
+  .subtitle {margin-bottom:12px}
+  .menu {display:flex;overflow-x:auto;gap:5px}
+  .menu-title {display:none}
+  .menu a {white-space:nowrap;font-size:12px}
+  .main {padding:18px 13px}
+  .cards {gap:10px}
+  .card {padding:14px}
+  .card .number {font-size:24px}
+  table {font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="brand">🐄 LA CRISTALINA</div>
+  <div class="subtitle">Sistema de gestión ganadera</div>
+
+  <nav class="menu">
+    <div class="menu-title">Principal</div>
+    <a class="active" href="#inicio">🏠 Inicio</a>
+    <a href="#ganado">🐄 Ganado</a>
+    <a href="#produccion">🥛 Producción de leche</a>
+    <div class="menu-title">Administración</div>
+    <a href="#reproduccion">❤️ Reproducción</a>
+    <a href="#partos">🐮 Partos y terneros</a>
+    <a href="#sanidad">💉 Sanidad</a>
+    <a href="#informes">📊 Informes</a>
+  </nav>
+</aside>
+
+<main class="main" id="inicio">
+  <header class="top">
+    <div>
+      <h1>Panel principal</h1>
+      <div class="muted">Bienvenido al sistema de gestión de LA CRISTALINA.</div>
+    </div>
+    <div class="date" id="fecha"></div>
+  </header>
+
+  <section class="cards">
+    <div class="card">
+      <div class="label">Total de animales</div>
+      <div class="number">0</div>
+      <div class="note">Inventario inicial</div>
+    </div>
+    <div class="card">
+      <div class="label">Vacas en producción</div>
+      <div class="number">0</div>
+      <div class="note">En ordeño</div>
+    </div>
+    <div class="card">
+      <div class="label">Leche del día</div>
+      <div class="number">0 L</div>
+      <div class="note">Producción diaria</div>
+    </div>
+    <div class="card">
+      <div class="label">Próximos partos</div>
+      <div class="number">0</div>
+      <div class="note">Por confirmar</div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="panel">
+      <h2>Producción reciente</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Ordeño mañana</th>
+            <th>Ordeño tarde</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sin registros</td>
+            <td>—</td><td>—</td><td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="notice">
+        Aquí aparecerá el historial de producción de leche
+        cuando comencemos a registrar los ordeños.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Accesos rápidos</h2>
+      <div class="actions">
+        <button class="action" onclick="alert('Próximamente: registro de animales')">🐄<br>Registrar vaca</button>
+        <button class="action" onclick="alert('Próximamente: producción de leche')">🥛<br>Registrar leche</button>
+        <button class="action" onclick="alert('Próximamente: reproducción')">❤️<br>Registrar servicio</button>
+        <button class="action" onclick="alert('Próximamente: sanidad')">💉<br>Registrar sanidad</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    LA CRISTALINA · Sistema de administración ganadera
+  </div>
+</main>
+</div>
+
+<script>
+document.getElementById("fecha").textContent =
+  new Date().toLocaleDateString("es-CO", {
+    weekday:"long",year:"numeric",month:"long",day:"numeric"
+  });
+</script>
+</body>
+</html>
