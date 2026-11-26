@@ -154,6 +154,17 @@ th {color:var(--gris);font-weight:normal}
   font-size:13px;line-height:1.5;
 }
 .footer {margin-top:25px;color:var(--gris);font-size:12px}
+  .resumen-leche {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:15px 0 20px;
+}
+.resumen-leche .card {padding:15px}
+.resumen-leche .number {font-size:24px}
+@media(max-width:600px) {
+  .resumen-leche {grid-template-columns:1fr}
+}
 @media(max-width:900px) {
   .cards {grid-template-columns:repeat(2,1fr)}
   .content {grid-template-columns:1fr}
@@ -279,7 +290,7 @@ th {color:var(--gris);font-weight:normal}
         <h2>Accesos rápidos</h2>
         <div class="actions">
           <button class="action" onclick="abrirFormulario()">🐄<br>Registrar animal</button>
-          <button class="action" onclick="alert('Este módulo se habilitará en el siguiente paso.')">🥛<br>Registrar leche</button>
+         <button class="action" onclick="mostrarSeccion('produccion')">🥛<br>Registrar leche</button>
           <button class="action" onclick="alert('Este módulo se habilitará en el siguiente paso.')">❤️<br>Reproducción</button>
           <button class="action" onclick="alert('Este módulo se habilitará en el siguiente paso.')">💉<br>Sanidad</button>
         </div>
