@@ -743,7 +743,16 @@ async function eliminarProduccion(id) {
   await cargarProduccion();
 }
 
+const conexion = window.supabase.createClient(
+  DIRECCION_SUPABASE,
+  CLAVE_PUBLICA
+);
+
 const porId = id => document.getElementById(id);
+
+let modoRegistro = false;
+let animales = [];
+let animalEditando = null;
 
 porId("fecha").textContent = new Date().toLocaleDateString("es-CO", {
   weekday:"long",year:"numeric",month:"long",day:"numeric"
