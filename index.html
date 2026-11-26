@@ -268,8 +268,8 @@ th {color:var(--gris);font-weight:normal}
       </div>
       <div class="card">
         <div class="label">Leche del día</div>
-        <div class="number">0 L</div>
-        <div class="note">Próximamente</div>
+        <div class="number" id="lecheDashboard">0 L</div>
+<div class="note">Producción registrada hoy</div>
       </div>
       <div class="card">
         <div class="label">Próximos partos</div>
@@ -393,7 +393,100 @@ th {color:var(--gris);font-weight:normal}
     </div>
   </section>
 
-  <section id="seccion-produccion" class="panel oculto">
+  <section id="seccion-produccion" class="oculto">
+
+  <div class="panel">
+    <h2>🥛 Registro de producción de leche</h2>
+    <p class="muted">Registra la producción diaria de cada animal.</p>
+
+    <form id="formProduccion" class="formulario">
+
+      <div class="campo">
+        <label>Seleccionar animal *</label>
+        <select id="animalLeche" required>
+          <option value="">Seleccionar animal</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Fecha de producción *</label>
+        <input type="date" id="fechaLeche" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la mañana *</label>
+        <input type="number" id="litrosManana"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la tarde *</label>
+        <input type="number" id="litrosTarde"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo completo">
+        <label>Observaciones</label>
+        <textarea id="observacionesLeche" rows="3"
+          placeholder="Observaciones del ordeño"></textarea>
+      </div>
+
+      <div class="completo">
+        <button class="boton" type="submit" id="guardarProduccion">
+          Guardar producción
+        </button>
+        <button class="boton boton-secundario" type="button"
+          onclick="cancelarProduccion()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+
+    <div id="mensajeProduccion" class="mensaje"></div>
+  </div>
+
+  <div class="resumen-leche">
+    <div class="card">
+      <div class="label">Producción de hoy</div>
+      <div class="number" id="lecheHoy">0 L</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Producción de la mañana</div>
+      <div class="number" id="lecheManana">0 L</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Producción de la tarde</div>
+      <div class="number" id="lecheTarde">0 L</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Historial de producción</h2>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Arete</th>
+            <th>Animal</th>
+            <th>Mañana</th>
+            <th>Tarde</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaProduccion">
+          <tr><td colspan="7">Cargando información...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
     <h2>Producción de leche</h2>
     <p>Este módulo se habilitará después de terminar el registro de ganado.</p>
   </section>
@@ -435,7 +528,220 @@ const conexion = window.supabase.createClient(
 
 let modoRegistro = false;
 let animales = [];
-let animalEditando = null;
+let produccionEditando = null;
+let producciones = [];
+
+function fechaLocal() {
+  const ahora = new Date();
+  const ajuste = ahora.getTimezoneOffset() * 60000;
+  return new Date(ahora.getTime() - ajuste)
+    .toISOString().slice(0,10);
+}
+
+function prepararProduccion() {
+  porId("fechaLeche").value = fechaLocal();
+
+  const selector = porId("animalLeche");
+  selector.innerHTML =
+    '<option value="">Seleccionar animal</option>';
+
+  animales.forEach(animal => {
+    const opcion = document.createElement("option");
+    opcion.value = animal.id;
+    opcion.textContent =
+      animal.arete + " - " + (animal.nombre || "Sin nombre");
+    selector.appendChild(opcion);
+  });
+}
+
+async function cargarProduccion() {
+  const lista = porId("listaProduccion");
+  if (!lista) return;
+
+  lista.innerHTML =
+    "<tr><td colspan='7'>Cargando producción...</td></tr>";
+
+  const {data,error} = await conexion
+    .from("produccion_leche")
+    .select(`
+      id,
+      animal_id,
+      fecha,
+      litros_manana,
+      litros_tarde,
+      total_litros,
+      observaciones,
+      animal:animales(arete,nombre)
+    `)
+    .order("fecha",{ascending:false});
+
+  if (error) {
+    lista.innerHTML =
+      "<tr><td colspan='7'>No se pudo cargar la producción.</td></tr>";
+    porId("mensajeProduccion").textContent = error.message;
+    return;
+  }
+
+  producciones = data || [];
+  mostrarProduccion();
+}
+
+function mostrarProduccion() {
+  const lista = porId("listaProduccion");
+
+  if (!producciones.length) {
+    lista.innerHTML =
+      "<tr><td colspan='7'>Todavía no hay producción registrada.</td></tr>";
+  } else {
+    lista.innerHTML = producciones.map(p => {
+      const total = Number(p.total_litros ??
+        (Number(p.litros_manana) + Number(p.litros_tarde)));
+
+      return `
+        <tr>
+          <td>${escapar(p.fecha)}</td>
+          <td>${escapar(p.animal?.arete || "—")}</td>
+          <td>${escapar(p.animal?.nombre || "—")}</td>
+          <td>${Number(p.litros_manana).toFixed(2)} L</td>
+          <td>${Number(p.litros_tarde).toFixed(2)} L</td>
+          <td><strong>${total.toFixed(2)} L</strong></td>
+          <td>
+            <div class="acciones-fila">
+              <button class="boton-pequeno"
+                onclick="editarProduccion('${p.id}')">Editar</button>
+              <button class="boton-pequeno boton-eliminar"
+                onclick="eliminarProduccion('${p.id}')">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  const hoy = fechaLocal();
+  const registrosHoy = producciones.filter(p => p.fecha === hoy);
+
+  const manana = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_manana),0
+  );
+
+  const tarde = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_tarde),0
+  );
+
+  const total = manana + tarde;
+
+  porId("lecheHoy").textContent = total.toFixed(2) + " L";
+  porId("lecheManana").textContent = manana.toFixed(2) + " L";
+  porId("lecheTarde").textContent = tarde.toFixed(2) + " L";
+  porId("lecheDashboard").textContent = total.toFixed(2) + " L";
+}
+
+porId("formProduccion").addEventListener("submit", async evento => {
+  evento.preventDefault();
+
+  const boton = porId("guardarProduccion");
+  const mensaje = porId("mensajeProduccion");
+
+  boton.disabled = true;
+  mensaje.textContent = "Guardando producción...";
+
+  const manana = Number(porId("litrosManana").value);
+  const tarde = Number(porId("litrosTarde").value);
+
+  if (manana < 0 || tarde < 0) {
+    mensaje.textContent = "Los litros no pueden ser negativos.";
+    boton.disabled = false;
+    return;
+  }
+
+  const registro = {
+    animal_id:porId("animalLeche").value,
+    fecha:porId("fechaLeche").value,
+    litros_manana:manana,
+    litros_tarde:tarde,
+    observaciones:
+      porId("observacionesLeche").value.trim() || null
+  };
+
+  try {
+    let resultado;
+
+    if (produccionEditando) {
+      resultado = await conexion
+        .from("produccion_leche")
+        .update(registro)
+        .eq("id",produccionEditando);
+    } else {
+      resultado = await conexion
+        .from("produccion_leche")
+        .insert(registro);
+    }
+
+    if (resultado.error) throw resultado.error;
+
+    mensaje.textContent = "¡Producción guardada correctamente!";
+
+    produccionEditando = null;
+    porId("formProduccion").reset();
+    prepararProduccion();
+
+    await cargarProduccion();
+
+  } catch (error) {
+    mensaje.textContent = "No se pudo guardar: " + error.message;
+  } finally {
+    boton.disabled = false;
+  }
+});
+
+function editarProduccion(id) {
+  const p = producciones.find(registro => registro.id === id);
+  if (!p) return;
+
+  produccionEditando = id;
+
+  prepararProduccion();
+
+  porId("animalLeche").value = p.animal_id;
+  porId("fechaLeche").value = p.fecha;
+  porId("litrosManana").value = p.litros_manana;
+  porId("litrosTarde").value = p.litros_tarde;
+  porId("observacionesLeche").value = p.observaciones || "";
+
+  porId("guardarProduccion").textContent = "Actualizar producción";
+  porId("mensajeProduccion").textContent = "Editando registro.";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelarProduccion() {
+  produccionEditando = null;
+  porId("formProduccion").reset();
+  prepararProduccion();
+  porId("guardarProduccion").textContent = "Guardar producción";
+  porId("mensajeProduccion").textContent = "";
+}
+
+async function eliminarProduccion(id) {
+  const p = producciones.find(registro => registro.id === id);
+  if (!p) return;
+
+  if (!confirm("¿Deseas eliminar este registro de producción?")) return;
+
+  const {error} = await conexion
+    .from("produccion_leche")
+    .delete()
+    .eq("id",id);
+
+  if (error) {
+    alert("No se pudo eliminar: " + error.message);
+    return;
+  }
+
+  alert("Registro eliminado correctamente.");
+  await cargarProduccion();
+}
 
 const porId = id => document.getElementById(id);
 
@@ -495,7 +801,10 @@ porId("formAcceso").addEventListener("submit", async evento => {
 async function mostrarAplicacion() {
   porId("pantallaAcceso").classList.add("oculto");
   porId("aplicacion").classList.remove("oculto");
+
   await cargarAnimales();
+  prepararProduccion();
+  await cargarProduccion();
 }
 
 porId("cerrarSesion").addEventListener("click", async () => {
@@ -591,7 +900,10 @@ function mostrarSeccion(nombre) {
 
   porId("tituloPagina").textContent = titulos[nombre] || "LA CRISTALINA";
 }
-
+if (nombre === "produccion") {
+  prepararProduccion();
+  cargarProduccion();
+}
 document.querySelectorAll(".menu a").forEach(enlace => {
   enlace.addEventListener("click", evento => {
     evento.preventDefault();
