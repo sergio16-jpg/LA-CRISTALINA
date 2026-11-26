@@ -1,0 +1,1032 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA CRISTALINA | Gestión Ganadera</title>
+
+<style>
+:root {
+  --verde:#245c42;
+  --verde2:#367b55;
+  --fondo:#f4f7f4;
+  --blanco:#ffffff;
+  --texto:#26382d;
+  --gris:#718078;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fondo);
+  color:var(--texto);
+}
+button,input,select,textarea {font:inherit}
+button {cursor:pointer}
+.oculto {display:none!important}
+
+#pantallaAcceso {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.acceso {
+  background:white;
+  width:100%;
+  max-width:420px;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 3px 18px #203c2818;
+}
+.acceso h1 {color:var(--verde);text-align:center}
+.acceso p {text-align:center;color:var(--gris)}
+.campo {margin-bottom:14px}
+.campo label {
+  display:block;
+  font-size:13px;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+.campo input,.campo select,.campo textarea {
+  width:100%;
+  padding:11px;
+  border:1px solid #dce5de;
+  border-radius:8px;
+  background:white;
+}
+.boton {
+  background:var(--verde);
+  color:white;
+  border:0;
+  padding:12px 17px;
+  border-radius:8px;
+  font-weight:bold;
+}
+.boton:hover {background:var(--verde2)}
+.boton-secundario {
+  background:#eaf2ec;
+  color:var(--verde);
+}
+.mensaje {font-size:13px;margin-top:12px;line-height:1.5}
+
+.layout {display:flex;min-height:100vh}
+.sidebar {
+  width:245px;
+  background:var(--verde);
+  color:white;
+  padding:25px 16px;
+  flex-shrink:0;
+}
+.brand {font-size:23px;font-weight:bold;margin:8px 10px}
+.subtitle {font-size:12px;color:#d3e4d8;margin:8px 10px 30px}
+.menu-title {
+  font-size:11px;color:#b9d2c1;
+  margin:24px 10px 10px;text-transform:uppercase;
+}
+.menu a {
+  display:block;padding:12px 13px;
+  color:#eaf3ec;text-decoration:none;
+  border-radius:8px;margin:4px 0;font-size:14px;
+}
+.menu a:hover,.menu a.active {background:#ffffff25}
+.main {flex:1;min-width:0;padding:28px}
+.top {
+  display:flex;justify-content:space-between;
+  align-items:center;gap:15px;flex-wrap:wrap;
+  margin-bottom:27px;
+}
+h1 {font-size:25px;margin:0 0 7px}
+.muted {color:var(--gris);font-size:14px}
+.date {color:var(--gris);font-size:13px}
+.cards {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;margin-bottom:25px;
+}
+.card,.panel {
+  background:white;border-radius:13px;
+  padding:20px;box-shadow:0 2px 10px #203c2810;
+}
+.card .label {font-size:13px;color:var(--gris)}
+.card .number {font-size:29px;font-weight:bold;margin:12px 0 5px}
+.card .note {font-size:12px;color:var(--verde2)}
+.content {
+  display:grid;grid-template-columns:1.5fr 1fr;gap:18px;
+}
+.panel h2 {font-size:17px;margin:0 0 18px}
+table {width:100%;border-collapse:collapse;font-size:13px}
+th,td {
+  padding:12px 8px;text-align:left;
+  border-bottom:1px solid #edf0ed;
+}
+th {color:var(--gris);font-weight:normal}
+.status {
+  background:#e8f4eb;color:#287348;
+  border-radius:20px;padding:5px 9px;font-size:11px;
+}
+.actions {display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action {
+  padding:15px 10px;border:1px solid #e5ebe6;
+  background:#fbfdfb;border-radius:10px;
+  color:var(--verde);font-weight:bold;
+}
+.action:hover {background:#eaf4ec}
+.formulario {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+  margin-bottom:20px;
+}
+.formulario .completo {grid-column:1/-1}
+.tabla-contenedor {overflow-x:auto}
+.tabla-contenedor table {min-width:650px}
+.acciones-fila {display:flex;gap:6px}
+.boton-pequeno {
+  padding:7px 9px;border:0;border-radius:6px;
+  background:#eaf2ec;color:var(--verde);
+}
+.boton-eliminar {background:#fbeaea;color:#a52b2b}
+.aviso {
+  padding:13px;background:#f0f6f1;
+  border-radius:9px;margin:12px 0;
+  font-size:13px;line-height:1.5;
+}
+.footer {margin-top:25px;color:var(--gris);font-size:12px}
+  .resumen-leche {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:15px 0 20px;
+}
+.resumen-leche .card {padding:15px}
+.resumen-leche .number {font-size:24px}
+@media(max-width:600px) {
+  .resumen-leche {grid-template-columns:1fr}
+}
+@media(max-width:900px) {
+  .cards {grid-template-columns:repeat(2,1fr)}
+  .content {grid-template-columns:1fr}
+}
+@media(max-width:600px) {
+  .layout {display:block}
+  .sidebar {width:100%;padding:15px}
+  .brand {font-size:20px}
+  .subtitle {margin-bottom:12px}
+  .menu {display:flex;overflow-x:auto;gap:5px}
+  .menu-title {display:none}
+  .menu a {white-space:nowrap;font-size:12px}
+  .main {padding:18px 13px}
+  .cards {gap:10px}
+  .card {padding:14px}
+  .card .number {font-size:24px}
+  .formulario {grid-template-columns:1fr}
+  .formulario .completo {grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<section id="pantallaAcceso">
+  <div class="acceso">
+    <h1>🐄 LA CRISTALINA</h1>
+    <p>Sistema de gestión ganadera</p>
+
+    <h3 id="tituloAcceso">Iniciar sesión</h3>
+
+    <form id="formAcceso">
+      <div class="campo">
+        <label>Correo electrónico</label>
+        <input id="correo" type="email" required>
+      </div>
+      <div class="campo">
+        <label>Contraseña</label>
+        <input id="contrasena" type="password" minlength="6" required>
+      </div>
+      <button class="boton" id="botonAcceso" type="submit" style="width:100%">
+        Ingresar
+      </button>
+    </form>
+
+    <div class="mensaje" id="mensajeAcceso"></div>
+
+    <p>
+      <button class="boton boton-secundario" id="cambiarAcceso" type="button">
+        Crear una cuenta
+      </button>
+    </p>
+  </div>
+</section>
+
+<div id="aplicacion" class="layout oculto">
+
+<aside class="sidebar">
+  <div class="brand">🐄 LA CRISTALINA</div>
+  <div class="subtitle">Sistema de gestión ganadera</div>
+
+  <nav class="menu">
+    <div class="menu-title">Principal</div>
+    <a href="#inicio" class="active" data-seccion="inicio">🏠 Inicio</a>
+    <a href="#ganado" data-seccion="ganado">🐄 Ganado</a>
+    <a href="#produccion" data-seccion="produccion">🥛 Producción de leche</a>
+    <div class="menu-title">Administración</div>
+    <a href="#reproduccion" data-seccion="reproduccion">❤️ Reproducción</a>
+    <a href="#partos" data-seccion="partos">🐮 Partos y terneros</a>
+    <a href="#sanidad" data-seccion="sanidad">💉 Sanidad</a>
+    <a href="#informes" data-seccion="informes">📊 Informes</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+  <header class="top">
+    <div>
+      <h1 id="tituloPagina">Panel principal</h1>
+      <div class="muted">Bienvenido a LA CRISTALINA.</div>
+    </div>
+    <div>
+      <div class="date" id="fecha"></div>
+      <button class="boton boton-secundario" id="cerrarSesion" type="button">
+        Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <section id="seccion-inicio">
+    <section class="cards">
+      <div class="card">
+        <div class="label">Total de animales</div>
+        <div class="number" id="totalAnimales">0</div>
+        <div class="note">Animales registrados</div>
+      </div>
+      <div class="card">
+        <div class="label">Vacas en producción</div>
+        <div class="number" id="vacasProduccion">0</div>
+        <div class="note">En ordeño</div>
+      </div>
+      <div class="card">
+        <div class="label">Leche del día</div>
+        <div class="number" id="lecheDashboard">0 L</div>
+<div class="note">Producción registrada hoy</div>
+      </div>
+      <div class="card">
+        <div class="label">Próximos partos</div>
+        <div class="number">0</div>
+        <div class="note">Próximamente</div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="panel">
+        <h2>Inventario de ganado</h2>
+        <p class="muted">Resumen de los animales registrados.</p>
+        <button class="boton" onclick="mostrarSeccion('ganado')">
+          Consultar ganado
+        </button>
+      </div>
+      <div class="panel">
+        <h2>Accesos rápidos</h2>
+        <div class="actions">
+          <button class="action" onclick="abrirFormulario()">🐄<br>Registrar animal</button>
+         <button class="action" onclick="mostrarSeccion('produccion')">🥛<br>Registrar leche</button>
+          <button class="action" onclick="alert('Este módulo se habilitará en el siguiente paso.')">❤️<br>Reproducción</button>
+          <button class="action" onclick="alert('Este módulo se habilitará en el siguiente paso.')">💉<br>Sanidad</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section id="seccion-ganado" class="oculto">
+    <div class="panel">
+      <div class="top">
+        <div>
+          <h2>Registro de ganado</h2>
+          <p class="muted">Administra los animales de la finca.</p>
+        </div>
+        <button class="boton" onclick="abrirFormulario()">+ Agregar animal</button>
+      </div>
+
+      <div id="areaFormulario" class="oculto">
+        <h3 id="tituloFormulario">Registrar nuevo animal</h3>
+
+        <form id="formAnimal" class="formulario">
+          <div class="campo">
+            <label>Número de arete *</label>
+            <input id="arete" required placeholder="Ej. LC-001">
+          </div>
+          <div class="campo">
+            <label>Nombre del animal</label>
+            <input id="nombre" placeholder="Nombre">
+          </div>
+          <div class="campo">
+            <label>Raza</label>
+            <input id="raza" placeholder="Ej. Holstein">
+          </div>
+          <div class="campo">
+            <label>Sexo</label>
+            <select id="sexo">
+              <option value="">Seleccionar</option>
+              <option>Hembra</option>
+              <option>Macho</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Fecha de nacimiento</label>
+            <input id="fechaNacimiento" type="date">
+          </div>
+          <div class="campo">
+            <label>Peso (kg)</label>
+            <input id="peso" type="number" min="0" step="0.01" placeholder="Ej. 450">
+          </div>
+          <div class="campo">
+            <label>Estado productivo</label>
+            <select id="estado">
+              <option value="No definido">No definido</option>
+              <option value="En producción">En producción</option>
+              <option value="Seca">Seca</option>
+              <option value="Novilla">Novilla</option>
+              <option value="Ternero">Ternero</option>
+              <option value="Engorde">Engorde</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label>Fecha de ingreso</label>
+            <input id="fechaIngreso" type="date">
+          </div>
+          <div class="campo completo">
+            <label>Observaciones</label>
+            <textarea id="observaciones" rows="3" placeholder="Información adicional"></textarea>
+          </div>
+          <div class="completo">
+            <button class="boton" type="submit" id="guardarAnimal">Guardar animal</button>
+            <button class="boton boton-secundario" type="button" onclick="cancelarFormulario()">Cancelar</button>
+          </div>
+        </form>
+        <div id="mensajeAnimal" class="mensaje"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:18px">
+      <h2>Animales registrados</h2>
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Arete</th>
+              <th>Nombre</th>
+              <th>Raza</th>
+              <th>Sexo</th>
+              <th>Peso</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="listaAnimales">
+            <tr><td colspan="7">Cargando información...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="mensajeLista" class="mensaje"></div>
+    </div>
+  </section>
+
+  <section id="seccion-produccion" class="oculto">
+
+  <div class="panel">
+    <h2>🥛 Registro de producción de leche</h2>
+    <p class="muted">Registra la producción diaria de cada animal.</p>
+
+    <form id="formProduccion" class="formulario">
+
+      <div class="campo">
+        <label>Seleccionar animal *</label>
+        <select id="animalLeche" required>
+          <option value="">Seleccionar animal</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Fecha de producción *</label>
+        <input type="date" id="fechaLeche" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la mañana *</label>
+        <input type="number" id="litrosManana"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la tarde *</label>
+        <input type="number" id="litrosTarde"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo completo">
+        <label>Observaciones</label>
+        <textarea id="observacionesLeche" rows="3"
+          placeholder="Observaciones del ordeño"></textarea>
+      </div>
+
+      <div class="completo">
+        <button class="boton" type="submit" id="guardarProduccion">
+          Guardar producción
+        </button>
+        <button class="boton boton-secundario" type="button"
+          onclick="cancelarProduccion()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+
+    <div id="mensajeProduccion" class="mensaje"></div>
+  </div>
+
+  <div class="resumen-leche">
+    <div class="card">
+      <div class="label">Producción de hoy</div>
+      <div class="number" id="lecheHoy">0 L</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Producción de la mañana</div>
+      <div class="number" id="lecheManana">0 L</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Producción de la tarde</div>
+      <div class="number" id="lecheTarde">0 L</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Historial de producción</h2>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Arete</th>
+            <th>Animal</th>
+            <th>Mañana</th>
+            <th>Tarde</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaProduccion">
+          <tr><td colspan="7">Cargando información...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+  <section id="seccion-reproduccion" class="panel oculto">
+    <h2>Reproducción</h2>
+    <p>Este módulo se habilitará en una siguiente etapa.</p>
+  </section>
+
+  <section id="seccion-partos" class="panel oculto">
+    <h2>Partos y terneros</h2>
+    <p>Este módulo se habilitará en una siguiente etapa.</p>
+  </section>
+
+  <section id="seccion-sanidad" class="panel oculto">
+    <h2>Sanidad</h2>
+    <p>Este módulo se habilitará en una siguiente etapa.</p>
+  </section>
+
+  <section id="seccion-informes" class="panel oculto">
+    <h2>Informes</h2>
+    <p>Este módulo se habilitará en una siguiente etapa.</p>
+  </section>
+
+  <div class="footer">LA CRISTALINA · Sistema de administración ganadera</div>
+</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const porId = id => document.getElementById(id);
+
+const DIRECCION_SUPABASE = "https://isdznabwztyfrmxytwlc.supabase.co";
+const CLAVE_PUBLICA = "sb_publishable_yIMMyNwfyX2-pLSRhKbt3Q_5wWY9r6z";
+
+const conexion = window.supabase.createClient(
+  DIRECCION_SUPABASE,
+  CLAVE_PUBLICA
+);
+
+let modoRegistro = false;
+let animales = [];
+let animalEditando = null;
+let produccionEditando = null;
+let producciones = [];
+
+function fechaLocal() {
+  const ahora = new Date();
+  const ajuste = ahora.getTimezoneOffset() * 60000;
+  return new Date(ahora.getTime() - ajuste)
+    .toISOString().slice(0,10);
+}
+
+function prepararProduccion() {
+  porId("fechaLeche").value = fechaLocal();
+
+  const selector = porId("animalLeche");
+  selector.innerHTML =
+    '<option value="">Seleccionar animal</option>';
+
+  animales.forEach(animal => {
+    const opcion = document.createElement("option");
+    opcion.value = animal.id;
+    opcion.textContent =
+      animal.arete + " - " + (animal.nombre || "Sin nombre");
+    selector.appendChild(opcion);
+  });
+}
+
+async function cargarProduccion() {
+  const lista = porId("listaProduccion");
+  if (!lista) return;
+
+  lista.innerHTML =
+    "<tr><td colspan='7'>Cargando producción...</td></tr>";
+
+  const {data,error} = await conexion
+    .from("produccion_leche")
+    .select(`
+      id,
+      animal_id,
+      fecha,
+      litros_manana,
+      litros_tarde,
+      total_litros,
+      observaciones
+    `)
+    .order("fecha",{ascending:false});
+
+  if (error) {
+    lista.innerHTML =
+      "<tr><td colspan='7'>No se pudo cargar la producción.</td></tr>";
+    porId("mensajeProduccion").textContent = error.message;
+    return;
+  }
+
+  producciones = data || [];
+  mostrarProduccion();
+}
+
+function mostrarProduccion() {
+  const lista = porId("listaProduccion");
+
+  if (!producciones.length) {
+    lista.innerHTML =
+      "<tr><td colspan='7'>Todavía no hay producción registrada.</td></tr>";
+  } else {
+    lista.innerHTML = producciones.map(p => {
+      const total = Number(p.total_litros ??
+        (Number(p.litros_manana) + Number(p.litros_tarde)));
+
+      const animal = animales.find(a => a.id === p.animal_id);
+      return `
+        <tr>
+          <td>${escapar(p.fecha)}</td>
+          <td>${escapar(animal?.arete || "—")}</td>
+          <td>${escapar(animal?.nombre || "—")}</td>
+          <td>${Number(p.litros_manana).toFixed(2)} L</td>
+          <td>${Number(p.litros_tarde).toFixed(2)} L</td>
+          <td><strong>${total.toFixed(2)} L</strong></td>
+          <td>
+            <div class="acciones-fila">
+              <button class="boton-pequeno"
+                onclick="editarProduccion('${p.id}')">Editar</button>
+              <button class="boton-pequeno boton-eliminar"
+                onclick="eliminarProduccion('${p.id}')">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  const hoy = fechaLocal();
+  const registrosHoy = producciones.filter(p => p.fecha === hoy);
+
+  const manana = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_manana),0
+  );
+
+  const tarde = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_tarde),0
+  );
+
+  const total = manana + tarde;
+
+  porId("lecheHoy").textContent = total.toFixed(2) + " L";
+  porId("lecheManana").textContent = manana.toFixed(2) + " L";
+  porId("lecheTarde").textContent = tarde.toFixed(2) + " L";
+  porId("lecheDashboard").textContent = total.toFixed(2) + " L";
+}
+
+porId("formProduccion").addEventListener("submit", async evento => {
+  evento.preventDefault();
+
+  const boton = porId("guardarProduccion");
+  const mensaje = porId("mensajeProduccion");
+
+  boton.disabled = true;
+  mensaje.textContent = "Guardando producción...";
+
+  const manana = Number(porId("litrosManana").value);
+  const tarde = Number(porId("litrosTarde").value);
+
+  if (manana < 0 || tarde < 0) {
+    mensaje.textContent = "Los litros no pueden ser negativos.";
+    boton.disabled = false;
+    return;
+  }
+
+  const registro = {
+    animal_id:porId("animalLeche").value,
+    fecha:porId("fechaLeche").value,
+    litros_manana:manana,
+    litros_tarde:tarde,
+    observaciones:
+      porId("observacionesLeche").value.trim() || null
+  };
+
+  try {
+    let resultado;
+
+    if (produccionEditando) {
+      resultado = await conexion
+        .from("produccion_leche")
+        .update(registro)
+        .eq("id",produccionEditando);
+    } else {
+      resultado = await conexion
+        .from("produccion_leche")
+        .insert(registro);
+    }
+
+    if (resultado.error) throw resultado.error;
+
+    mensaje.textContent = "¡Producción guardada correctamente!";
+
+    produccionEditando = null;
+    porId("formProduccion").reset();
+    prepararProduccion();
+
+    await cargarProduccion();
+
+  } catch (error) {
+    mensaje.textContent = "No se pudo guardar: " + error.message;
+  } finally {
+    boton.disabled = false;
+  }
+});
+
+function editarProduccion(id) {
+  const p = producciones.find(registro => registro.id === id);
+  if (!p) return;
+
+  produccionEditando = id;
+
+  prepararProduccion();
+
+  porId("animalLeche").value = p.animal_id;
+  porId("fechaLeche").value = p.fecha;
+  porId("litrosManana").value = p.litros_manana;
+  porId("litrosTarde").value = p.litros_tarde;
+  porId("observacionesLeche").value = p.observaciones || "";
+
+  porId("guardarProduccion").textContent = "Actualizar producción";
+  porId("mensajeProduccion").textContent = "Editando registro.";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelarProduccion() {
+  produccionEditando = null;
+  porId("formProduccion").reset();
+  prepararProduccion();
+  porId("guardarProduccion").textContent = "Guardar producción";
+  porId("mensajeProduccion").textContent = "";
+}
+
+async function eliminarProduccion(id) {
+  const p = producciones.find(registro => registro.id === id);
+  if (!p) return;
+
+  if (!confirm("¿Deseas eliminar este registro de producción?")) return;
+
+  const {error} = await conexion
+    .from("produccion_leche")
+    .delete()
+    .eq("id",id);
+
+  if (error) {
+    alert("No se pudo eliminar: " + error.message);
+    return;
+  }
+
+  alert("Registro eliminado correctamente.");
+  await cargarProduccion();
+}
+
+porId("fecha").textContent = new Date().toLocaleDateString("es-CO", {
+  weekday:"long",year:"numeric",month:"long",day:"numeric"
+});
+
+porId("cambiarAcceso").addEventListener("click", () => {
+  modoRegistro = !modoRegistro;
+  porId("tituloAcceso").textContent = modoRegistro ? "Crear cuenta" : "Iniciar sesión";
+  porId("botonAcceso").textContent = modoRegistro ? "Crear cuenta" : "Ingresar";
+  porId("cambiarAcceso").textContent = modoRegistro ? "Volver a iniciar sesión" : "Crear una cuenta";
+  porId("mensajeAcceso").textContent = "";
+});
+
+porId("formAcceso").addEventListener("submit", async evento => {
+  evento.preventDefault();
+
+  const correo = porId("correo").value.trim();
+  const contrasena = porId("contrasena").value;
+  const mensaje = porId("mensajeAcceso");
+
+  mensaje.textContent = "Procesando...";
+  porId("botonAcceso").disabled = true;
+
+  try {
+    let resultado;
+
+    if (modoRegistro) {
+      resultado = await conexion.auth.signUp({
+        email:correo,
+        password:contrasena
+      });
+
+      if (!resultado.error && !resultado.data.session) {
+        mensaje.textContent = "Cuenta creada. Revisa tu correo para confirmar el registro y después inicia sesión.";
+      }
+    } else {
+      resultado = await conexion.auth.signInWithPassword({
+        email:correo,
+        password:contrasena
+      });
+    }
+
+    if (resultado.error) throw resultado.error;
+
+    if (resultado.data.session) {
+      mostrarAplicacion();
+    }
+  } catch (error) {
+    mensaje.textContent = "No se pudo completar la operación: " + error.message;
+  } finally {
+    porId("botonAcceso").disabled = false;
+  }
+});
+
+async function mostrarAplicacion() {
+  porId("pantallaAcceso").classList.add("oculto");
+  porId("aplicacion").classList.remove("oculto");
+
+  await cargarAnimales();
+  prepararProduccion();
+  await cargarProduccion();
+}
+
+porId("cerrarSesion").addEventListener("click", async () => {
+  await conexion.auth.signOut();
+  porId("aplicacion").classList.add("oculto");
+  porId("pantallaAcceso").classList.remove("oculto");
+});
+
+conexion.auth.onAuthStateChange((evento, sesion) => {
+  if (sesion) {
+    mostrarAplicacion();
+  } else {
+    porId("aplicacion").classList.add("oculto");
+    porId("pantallaAcceso").classList.remove("oculto");
+  }
+});
+
+async function cargarAnimales() {
+  const lista = porId("listaAnimales");
+  lista.innerHTML = "<tr><td colspan='7'>Cargando...</td></tr>";
+
+  const {data,error} = await conexion
+    .from("animales")
+    .select("*")
+    .order("creado_en",{ascending:false});
+
+  if (error) {
+    lista.innerHTML = "<tr><td colspan='7'>No se pudo cargar la información.</td></tr>";
+    porId("mensajeLista").textContent = error.message;
+    return;
+  }
+
+  animales = data || [];
+  mostrarAnimales();
+  prepararProduccion();
+}
+
+function escapar(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, caracter => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[caracter]);
+}
+
+function mostrarAnimales() {
+  const lista = porId("listaAnimales");
+
+  porId("totalAnimales").textContent = animales.length;
+  porId("vacasProduccion").textContent =
+    animales.filter(a => a.estado_productivo === "En producción").length;
+
+  if (!animales.length) {
+    lista.innerHTML = "<tr><td colspan='7'>Todavía no hay animales registrados.</td></tr>";
+    return;
+  }
+
+  lista.innerHTML = animales.map(animal => `
+    <tr>
+      <td>${escapar(animal.arete)}</td>
+      <td>${escapar(animal.nombre || "—")}</td>
+      <td>${escapar(animal.raza || "—")}</td>
+      <td>${escapar(animal.sexo || "—")}</td>
+      <td>${animal.peso_kg ?? "—"} kg</td>
+      <td><span class="status">${escapar(animal.estado_productivo)}</span></td>
+      <td>
+        <div class="acciones-fila">
+          <button class="boton-pequeno" onclick="editarAnimal('${animal.id}')">Editar</button>
+          <button class="boton-pequeno boton-eliminar" onclick="eliminarAnimal('${animal.id}')">Eliminar</button>
+        </div>
+      </td>
+    </tr>
+  `).join("");
+}
+
+function mostrarSeccion(nombre) {
+  document.querySelectorAll("main > section[id^='seccion-']").forEach(seccion => {
+    seccion.classList.add("oculto");
+  });
+
+  porId("seccion-" + nombre).classList.remove("oculto");
+
+  document.querySelectorAll(".menu a").forEach(enlace => {
+    enlace.classList.toggle("active", enlace.dataset.seccion === nombre);
+  });
+
+  const titulos = {
+    inicio:"Panel principal",
+    ganado:"Registro de ganado",
+    produccion:"Producción de leche",
+    reproduccion:"Reproducción",
+    partos:"Partos y terneros",
+    sanidad:"Sanidad",
+    informes:"Informes"
+  };
+
+  porId("tituloPagina").textContent = titulos[nombre] || "LA CRISTALINA";
+
+  if (nombre === "produccion") {
+    prepararProduccion();
+    cargarProduccion();
+  }
+}
+document.querySelectorAll(".menu a").forEach(enlace => {
+  enlace.addEventListener("click", evento => {
+    evento.preventDefault();
+    mostrarSeccion(enlace.dataset.seccion);
+  });
+});
+
+function abrirFormulario() {
+  mostrarSeccion("ganado");
+  porId("areaFormulario").classList.remove("oculto");
+  porId("tituloFormulario").textContent = "Registrar nuevo animal";
+  porId("formAnimal").reset();
+  porId("fechaIngreso").value = new Date().toISOString().slice(0,10);
+  animalEditando = null;
+  porId("mensajeAnimal").textContent = "";
+}
+
+function cancelarFormulario() {
+  porId("areaFormulario").classList.add("oculto");
+  porId("formAnimal").reset();
+  animalEditando = null;
+}
+
+function editarAnimal(id) {
+  const animal = animales.find(a => a.id === id);
+  if (!animal) return;
+
+  animalEditando = id;
+  mostrarSeccion("ganado");
+  porId("areaFormulario").classList.remove("oculto");
+  porId("tituloFormulario").textContent = "Editar animal";
+
+  porId("arete").value = animal.arete || "";
+  porId("nombre").value = animal.nombre || "";
+  porId("raza").value = animal.raza || "";
+  porId("sexo").value = animal.sexo || "";
+  porId("fechaNacimiento").value = animal.fecha_nacimiento || "";
+  porId("peso").value = animal.peso_kg ?? "";
+  porId("estado").value = animal.estado_productivo || "No definido";
+  porId("fechaIngreso").value = animal.fecha_ingreso || "";
+  porId("observaciones").value = animal.observaciones || "";
+  porId("mensajeAnimal").textContent = "";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+porId("formAnimal").addEventListener("submit", async evento => {
+  evento.preventDefault();
+
+  const mensaje = porId("mensajeAnimal");
+  const boton = porId("guardarAnimal");
+  boton.disabled = true;
+  mensaje.textContent = "Guardando información...";
+
+  const peso = porId("peso").value;
+
+  const registro = {
+    arete:porId("arete").value.trim(),
+    nombre:porId("nombre").value.trim() || null,
+    raza:porId("raza").value.trim() || null,
+    sexo:porId("sexo").value || null,
+    fecha_nacimiento:porId("fechaNacimiento").value || null,
+    peso_kg:peso === "" ? null : Number(peso),
+    estado_productivo:porId("estado").value,
+    fecha_ingreso:porId("fechaIngreso").value || null,
+    observaciones:porId("observaciones").value.trim() || null
+  };
+
+  try {
+    let resultado;
+
+    if (animalEditando) {
+      resultado = await conexion
+        .from("animales")
+        .update(registro)
+        .eq("id",animalEditando);
+    } else {
+      resultado = await conexion
+        .from("animales")
+        .insert(registro);
+    }
+
+    if (resultado.error) throw resultado.error;
+
+    mensaje.textContent = "¡Animal guardado correctamente!";
+    animalEditando = null;
+    porId("formAnimal").reset();
+    porId("areaFormulario").classList.add("oculto");
+    await cargarAnimales();
+
+  } catch (error) {
+    mensaje.textContent = "No se pudo guardar: " + error.message;
+  } finally {
+    boton.disabled = false;
+  }
+});
+
+async function eliminarAnimal(id) {
+  const animal = animales.find(a => a.id === id);
+  if (!animal) return;
+
+  if (!confirm("¿Deseas eliminar el animal con arete " + animal.arete + "?")) return;
+
+  const {error} = await conexion
+    .from("animales")
+    .delete()
+    .eq("id",id);
+
+  if (error) {
+    alert("No se pudo eliminar: " + error.message);
+    return;
+  }
+
+  alert("Registro eliminado correctamente.");
+  await cargarAnimales();
+}
+
+(async function iniciar() {
+  const {data} = await conexion.auth.getSession();
+  if (data.session) {
+    await mostrarAplicacion();
+  }
+})();
+</script>
+
+</body>
+</html>
