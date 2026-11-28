@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,9 +13,6 @@
   --blanco:#ffffff;
   --texto:#26382d;
   --gris:#718078;
-  --verde-claro:#eaf3ec;
-  --borde:#e5ece6;
-  --sombra:0 8px 24px rgba(32,60,40,.07);
 }
 * {box-sizing:border-box}
 body {
@@ -68,9 +64,7 @@ button {cursor:pointer}
   border-radius:8px;
   font-weight:bold;
 }
-.boton:hover {background:var(--verde2);transform:translateY(-1px)}
-.boton:disabled {opacity:.6;cursor:not-allowed;transform:none}
-.card,.panel,.action,.boton {transition:all .18s ease}
+.boton:hover {background:var(--verde2)}
 .boton-secundario {
   background:#eaf2ec;
   color:var(--verde);
@@ -79,12 +73,11 @@ button {cursor:pointer}
 
 .layout {display:flex;min-height:100vh}
 .sidebar {
-  width:255px;
+  width:245px;
   background:var(--verde);
   color:white;
-  padding:28px 17px;
+  padding:25px 16px;
   flex-shrink:0;
-  box-shadow:4px 0 20px #173c2910;
 }
 .brand {font-size:23px;font-weight:bold;margin:8px 10px}
 .subtitle {font-size:12px;color:#d3e4d8;margin:8px 10px 30px}
@@ -97,8 +90,8 @@ button {cursor:pointer}
   color:#eaf3ec;text-decoration:none;
   border-radius:8px;margin:4px 0;font-size:14px;
 }
-.menu a:hover,.menu a.active {background:#ffffff25;border-left:3px solid #c6e6ce;padding-left:10px}
-.main {flex:1;min-width:0;padding:32px;max-width:1600px;margin:0 auto}
+.menu a:hover,.menu a.active {background:#ffffff25}
+.main {flex:1;min-width:0;padding:28px}
 .top {
   display:flex;justify-content:space-between;
   align-items:center;gap:15px;flex-wrap:wrap;
@@ -112,8 +105,8 @@ h1 {font-size:25px;margin:0 0 7px}
   gap:16px;margin-bottom:25px;
 }
 .card,.panel {
-  background:white;border-radius:16px;
-  padding:22px;box-shadow:var(--sombra);border:1px solid #edf2ee;
+  background:white;border-radius:13px;
+  padding:20px;box-shadow:0 2px 10px #203c2810;
 }
 .card .label {font-size:13px;color:var(--gris)}
 .card .number {font-size:29px;font-weight:bold;margin:12px 0 5px}
@@ -160,7 +153,7 @@ th {color:var(--gris);font-weight:normal}
   font-size:13px;line-height:1.5;
 }
 .footer {margin-top:25px;color:var(--gris);font-size:12px}
-.resumen-leche {
+  .resumen-leche {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
@@ -175,7 +168,6 @@ th {color:var(--gris);font-weight:normal}
   .cards {grid-template-columns:repeat(2,1fr)}
   .content {grid-template-columns:1fr}
 }
-@media(max-width:1100px) { .main{padding:22px} }
 @media(max-width:600px) {
   .layout {display:block}
   .sidebar {width:100%;padding:15px}
@@ -191,22 +183,6 @@ th {color:var(--gris);font-weight:normal}
   .formulario {grid-template-columns:1fr}
   .formulario .completo {grid-column:auto}
 }
-
-/* Fichas y módulos ganaderos */
-.grid-fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:16px;margin-top:16px}
-.ficha-animal{background:#fff;border:1px solid var(--borde);border-radius:15px;overflow:hidden;box-shadow:var(--sombra)}
-.ficha-foto{height:145px;background:linear-gradient(135deg,#eaf3ec,#d9e9dd);display:flex;align-items:center;justify-content:center;font-size:55px;color:var(--verde)}
-.ficha-foto img{width:100%;height:100%;object-fit:cover}
-.ficha-cuerpo{padding:16px}.ficha-cuerpo h3{margin:0 0 5px;color:var(--verde)}
-.ficha-datos{font-size:13px;color:var(--gris);line-height:1.8;margin:10px 0}
-.ficha-botones{display:flex;gap:7px;flex-wrap:wrap}.detalle-animal{margin-top:18px}
-.detalle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.dato-detalle{background:#f7faf7;border-radius:10px;padding:12px}.dato-detalle small{display:block;color:var(--gris);margin-bottom:5px}
-.estado-etiqueta{display:inline-block;padding:5px 9px;background:var(--verde-claro);color:var(--verde);border-radius:20px;font-size:12px}
-.seccion-cabecera{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:15px}
-.tabla-contenedor{border-radius:10px}
-@media(max-width:700px){.detalle-grid{grid-template-columns:1fr 1fr}.grid-fichas{grid-template-columns:1fr}}
-@media(max-width:420px){.detalle-grid{grid-template-columns:1fr}}
 </style>
 </head>
 
@@ -216,7 +192,9 @@ th {color:var(--gris);font-weight:normal}
   <div class="acceso">
     <h1>🐄 LA CRISTALINA</h1>
     <p>Sistema de gestión ganadera</p>
+
     <h3 id="tituloAcceso">Iniciar sesión</h3>
+
     <form id="formAcceso">
       <div class="campo">
         <label>Correo electrónico</label>
@@ -230,7 +208,9 @@ th {color:var(--gris);font-weight:normal}
         Ingresar
       </button>
     </form>
+
     <div class="mensaje" id="mensajeAcceso"></div>
+
     <p>
       <button class="boton boton-secundario" id="cambiarAcceso" type="button">
         Crear una cuenta
@@ -240,9 +220,11 @@ th {color:var(--gris);font-weight:normal}
 </section>
 
 <div id="aplicacion" class="layout oculto">
+
 <aside class="sidebar">
   <div class="brand">🐄 LA CRISTALINA</div>
   <div class="subtitle">Sistema de gestión ganadera</div>
+
   <nav class="menu">
     <div class="menu-title">Principal</div>
     <a href="#inicio" class="active" data-seccion="inicio">🏠 Inicio</a>
@@ -251,12 +233,15 @@ th {color:var(--gris);font-weight:normal}
     <div class="menu-title">Administración</div>
     <a href="#reproduccion" data-seccion="reproduccion">❤️ Reproducción</a>
     <a href="#partos" data-seccion="partos">🐮 Partos y terneros</a>
+    <a href="#lotes" data-seccion="lotes">🐄 Lotes de crianza</a>
+    <a href="#alertas" data-seccion="alertas">📅 Próximos secados</a>
     <a href="#sanidad" data-seccion="sanidad">💉 Sanidad</a>
     <a href="#informes" data-seccion="informes">📊 Informes</a>
   </nav>
 </aside>
 
 <main class="main">
+
   <header class="top">
     <div>
       <h1 id="tituloPagina">Panel principal</h1>
@@ -285,7 +270,7 @@ th {color:var(--gris);font-weight:normal}
       <div class="card">
         <div class="label">Leche del día</div>
         <div class="number" id="lecheDashboard">0 L</div>
-        <div class="note">Producción registrada hoy</div>
+<div class="note">Producción registrada hoy</div>
       </div>
       <div class="card">
         <div class="label">Próximos partos</div>
@@ -306,7 +291,7 @@ th {color:var(--gris);font-weight:normal}
         <h2>Accesos rápidos</h2>
         <div class="actions">
           <button class="action" onclick="abrirFormulario()">🐄<br>Registrar animal</button>
-          <button class="action" onclick="mostrarSeccion('produccion')">🥛<br>Registrar leche</button>
+         <button class="action" onclick="mostrarSeccion('produccion')">🥛<br>Registrar leche</button>
           <button class="action" onclick="mostrarSeccion('reproduccion')">❤️<br>Reproducción</button>
           <button class="action" onclick="mostrarSeccion('sanidad')">💉<br>Sanidad</button>
         </div>
@@ -326,6 +311,7 @@ th {color:var(--gris);font-weight:normal}
 
       <div id="areaFormulario" class="oculto">
         <h3 id="tituloFormulario">Registrar nuevo animal</h3>
+
         <form id="formAnimal" class="formulario">
           <div class="campo">
             <label>Número de arete *</label>
@@ -372,10 +358,6 @@ th {color:var(--gris);font-weight:normal}
             <input id="fechaIngreso" type="date">
           </div>
           <div class="campo completo">
-            <label>Enlace de fotografía (opcional)</label>
-            <input id="fotoUrl" type="url" placeholder="https://...">
-          </div>
-          <div class="campo completo">
             <label>Observaciones</label>
             <textarea id="observaciones" rows="3" placeholder="Información adicional"></textarea>
           </div>
@@ -410,169 +392,144 @@ th {color:var(--gris);font-weight:normal}
       </div>
       <div id="mensajeLista" class="mensaje"></div>
     </div>
-
-    <div class="panel" style="margin-top:18px">
-      <div class="seccion-cabecera">
-        <div>
-          <h2>Fichas individuales</h2>
-          <p class="muted">Consulta la información completa de cada animal.</p>
-        </div>
-      </div>
-      <div id="listaFichas" class="grid-fichas">
-        <p class="muted">Cargando fichas...</p>
-      </div>
-      <div id="detalleAnimal" class="detalle-animal oculto"></div>
-    </div>
   </section>
 
   <section id="seccion-produccion" class="oculto">
-    <div class="panel">
-      <h2>🥛 Registro de producción de leche</h2>
-      <p class="muted">Registra la producción diaria de cada animal.</p>
-      <form id="formProduccion" class="formulario">
-        <div class="campo">
-          <label>Seleccionar animal *</label>
-          <select id="animalLeche" required>
-            <option value="">Seleccionar animal</option>
-          </select>
-        </div>
-        <div class="campo">
-          <label>Fecha de producción *</label>
-          <input type="date" id="fechaLeche" required>
-        </div>
-        <div class="campo">
-          <label>Litros de la mañana *</label>
-          <input type="number" id="litrosManana" min="0" step="0.01" value="0" required>
-        </div>
-        <div class="campo">
-          <label>Litros de la tarde *</label>
-          <input type="number" id="litrosTarde" min="0" step="0.01" value="0" required>
-        </div>
-        <div class="campo completo">
-          <label>Observaciones</label>
-          <textarea id="observacionesLeche" rows="3" placeholder="Observaciones del ordeño"></textarea>
-        </div>
-        <div class="completo">
-          <button class="boton" type="submit" id="guardarProduccion">Guardar producción</button>
-          <button class="boton boton-secundario" type="button" onclick="cancelarProduccion()">Cancelar</button>
-        </div>
-      </form>
-      <div id="mensajeProduccion" class="mensaje"></div>
+
+  <div class="panel">
+    <h2>🥛 Registro de producción de leche</h2>
+    <p class="muted">Registra la producción diaria de cada animal.</p>
+
+    <form id="formProduccion" class="formulario">
+
+      <div class="campo">
+        <label>Seleccionar animal *</label>
+        <select id="animalLeche" required>
+          <option value="">Seleccionar animal</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Fecha de producción *</label>
+        <input type="date" id="fechaLeche" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la mañana *</label>
+        <input type="number" id="litrosManana"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo">
+        <label>Litros de la tarde *</label>
+        <input type="number" id="litrosTarde"
+          min="0" step="0.01" value="0" required>
+      </div>
+
+      <div class="campo completo">
+        <label>Observaciones</label>
+        <textarea id="observacionesLeche" rows="3"
+          placeholder="Observaciones del ordeño"></textarea>
+      </div>
+
+      <div class="completo">
+        <button class="boton" type="submit" id="guardarProduccion">
+          Guardar producción
+        </button>
+        <button class="boton boton-secundario" type="button"
+          onclick="cancelarProduccion()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+
+    <div id="mensajeProduccion" class="mensaje"></div>
+  </div>
+
+  <div class="resumen-leche">
+    <div class="card">
+      <div class="label">Producción de hoy</div>
+      <div class="number" id="lecheHoy">0 L</div>
     </div>
 
-    <div class="resumen-leche">
-      <div class="card">
-        <div class="label">Producción de hoy</div>
-        <div class="number" id="lecheHoy">0 L</div>
-      </div>
-      <div class="card">
-        <div class="label">Producción de la mañana</div>
-        <div class="number" id="lecheManana">0 L</div>
-      </div>
-      <div class="card">
-        <div class="label">Producción de la tarde</div>
-        <div class="number" id="lecheTarde">0 L</div>
-      </div>
+    <div class="card">
+      <div class="label">Producción de la mañana</div>
+      <div class="number" id="lecheManana">0 L</div>
     </div>
 
-    <div class="panel">
-      <h2>Historial de producción</h2>
-      <div class="tabla-contenedor">
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th><th>Arete</th><th>Animal</th>
-              <th>Mañana</th><th>Tarde</th><th>Total</th><th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="listaProduccion">
-            <tr><td colspan="7">Cargando información...</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="card">
+      <div class="label">Producción de la tarde</div>
+      <div class="number" id="lecheTarde">0 L</div>
     </div>
-  </section>
+  </div>
+
+  <div class="panel">
+    <h2>Historial de producción</h2>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Arete</th>
+            <th>Animal</th>
+            <th>Mañana</th>
+            <th>Tarde</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaProduccion">
+          <tr><td colspan="7">Cargando información...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
 
   <section id="seccion-reproduccion" class="oculto">
     <div class="panel">
-      <h2>❤️ Registro reproductivo</h2>
-      <p class="muted">Registra servicios, inseminaciones y seguimiento de gestación.</p>
+      <h2>❤️ Registro de reproducción</h2>
+      <p class="muted">Registra el servicio y consulta las fechas calculadas: secado al mes 7, preparto al mes 8 y parto al mes 9.</p>
       <form id="formReproduccion" class="formulario">
-        <div class="campo"><label>Vaca *</label><select id="repAnimal" required></select></div>
-        <div class="campo"><label>Fecha del servicio *</label><input id="repFecha" type="date" required></div>
-        <div class="campo"><label>Tipo de servicio</label><select id="repTipo"><option> monta natural</option><option>Inseminación artificial</option><option>Transferencia de embriones</option></select></div>
-        <div class="campo"><label>Toro / semen utilizado</label><input id="repToro" placeholder="Identificación o nombre"></div>
-        <div class="campo"><label>Fecha probable de parto</label><input id="repParto" type="date"></div>
-        <div class="campo"><label>Resultado / estado</label><select id="repEstado"><option>Pendiente</option><option>Gestante</option><option>No gestante</option><option>Por confirmar</option></select></div>
-        <div class="campo completo"><label>Observaciones</label><textarea id="repObs" rows="2"></textarea></div>
-        <div class="completo"><button class="boton" type="submit" id="guardarRep">Guardar registro</button></div>
-      </form>
-      <div id="msgRep" class="mensaje"></div>
+        <div class="campo"><label>Vaca *</label><select id="vacaRepro" required><option value="">Seleccionar hembra</option></select></div>
+        <div class="campo"><label>Fecha de servicio / inseminación *</label><input id="fechaServicio" type="date" required></div>
+        <div class="campo"><label>Estado de reproducción *</label><select id="estadoRepro" required><option value="Sin confirmar">Sin confirmar</option><option value="Confirmada">Confirmada</option><option value="Aborto">Aborto</option></select></div>
+        <div class="campo"><label>Código del toro</label><input id="codigoToro" placeholder="Código o identificación"></div>
+        <div class="campo"><label>Nombre del toro</label><input id="nombreToro" placeholder="Nombre del toro"></div>
+        <div class="campo"><label>Observaciones</label><input id="obsRepro" placeholder="Detalles del servicio"></div>
+        <div class="completo"><button class="boton" id="guardarRepro" type="submit">Guardar reproducción</button><button class="boton boton-secundario" type="button" onclick="cancelarRepro()">Limpiar</button></div>
+      </form><div id="mensajeRepro" class="mensaje"></div>
     </div>
-    <div class="panel" style="margin-top:18px">
-      <h2>Historial reproductivo</h2>
-      <div class="tabla-contenedor">
-        <table>
-          <thead><tr><th>Vaca</th><th>Fecha</th><th>Servicio</th><th>Toro / semen</th><th>Parto probable</th><th>Estado</th><th>Acción</th></tr></thead>
-          <tbody id="listaReproduccion"><tr><td colspan="7">Cargando...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="panel" style="margin-top:18px"><h2>Historial reproductivo</h2><div class="tabla-contenedor"><table><thead><tr><th>Vaca</th><th>Servicio</th><th>Estado</th><th>Toro</th><th>Secado</th><th>Preparto</th><th>Parto estimado</th><th>Acciones</th></tr></thead><tbody id="listaRepro"></tbody></table></div></div>
   </section>
 
   <section id="seccion-partos" class="oculto">
-    <div class="panel">
-      <h2>🐮 Registro de partos y terneros</h2>
-      <p class="muted">Registra el nacimiento y la condición inicial de la cría.</p>
+    <div class="panel"><h2>🐮 Registro de partos</h2>
       <form id="formParto" class="formulario">
-        <div class="campo"><label>Madre *</label><select id="partoMadre" required></select></div>
-        <div class="campo"><label>Fecha del parto *</label><input id="partoFecha" type="date" required></div>
-        <div class="campo"><label>Tipo de parto</label><select id="partoTipo"><option>Normal</option><option>Asistido</option><option>Cesárea</option><option>Distócico</option></select></div>
-        <div class="campo"><label>Sexo de la cría</label><select id="partoSexo"><option value="">Seleccionar</option><option>Hembra</option><option>Macho</option></select></div>
-        <div class="campo"><label>Arete de la cría</label><input id="partoArete" placeholder="Ej. LC-025"></div>
-        <div class="campo"><label>Estado de la cría</label><select id="partoEstado"><option>Viva</option><option>Muerta al nacer</option><option>En observación</option></select></div>
-        <div class="campo completo"><label>Observaciones</label><textarea id="partoObs" rows="2"></textarea></div>
-        <div class="completo"><button class="boton" type="submit" id="guardarParto">Guardar parto</button></div>
-      </form>
-      <div id="msgParto" class="mensaje"></div>
+        <div class="campo"><label>Vaca madre *</label><select id="madreParto" required><option value="">Seleccionar vaca</option></select></div>
+        <div class="campo"><label>Fecha del parto *</label><input id="fechaParto" type="date" required></div>
+        <div class="campo"><label>Resultado *</label><select id="resultadoParto"><option value="Vivo">Cría viva</option><option value="Muerto">Cría muerta</option><option value="Gemelar">Parto gemelar</option></select></div>
+        <div class="campo"><label>Destino de la cría *</label><select id="destinoCria"><option value="Venta">Venta</option><option value="Criar">Criar en la finca</option></select></div>
+        <div class="campo"><label>Sexo de la cría</label><select id="sexoCria"><option value="Hembra">Hembra</option><option value="Macho">Macho</option></select></div>
+        <div class="campo"><label>Peso al nacer (kg)</label><input id="pesoCria" type="number" min="0" step="0.1"></div>
+        <div id="datosCria" class="completo oculto"><div class="formulario"><div class="campo"><label>Nombre de la cría *</label><input id="nombreCria"></div><div class="campo"><label>Número de placa / arete *</label><input id="placaCria"></div></div><p class="aviso">Al elegir “Criar”, debes asignar nombre y placa. La cría se incorporará al inventario y a su lote según la edad.</p></div>
+        <div class="campo completo"><label>Observaciones</label><textarea id="obsParto" rows="2"></textarea></div>
+        <div class="completo"><button class="boton" type="submit">Guardar parto</button></div>
+      </form><div id="mensajeParto" class="mensaje"></div>
     </div>
-    <div class="panel" style="margin-top:18px">
-      <h2>Historial de partos</h2>
-      <div class="tabla-contenedor">
-        <table>
-          <thead><tr><th>Madre</th><th>Fecha</th><th>Tipo</th><th>Cría</th><th>Sexo</th><th>Estado</th><th>Acción</th></tr></thead>
-          <tbody id="listaPartos"><tr><td colspan="7">Cargando...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="panel" style="margin-top:18px"><h2>Partos registrados</h2><div class="tabla-contenedor"><table><thead><tr><th>Fecha</th><th>Madre</th><th>Resultado</th><th>Destino</th><th>Cría</th><th>Placa</th></tr></thead><tbody id="listaPartos"></tbody></table></div></div>
   </section>
 
-  <section id="seccion-sanidad" class="oculto">
-    <div class="panel">
-      <h2>💉 Vacunas y tratamientos</h2>
-      <p class="muted">Lleva el control sanitario y las próximas fechas de atención.</p>
-      <form id="formSanidad" class="formulario">
-        <div class="campo"><label>Animal *</label><select id="sanAnimal" required></select></div>
-        <div class="campo"><label>Fecha *</label><input id="sanFecha" type="date" required></div>
-        <div class="campo"><label>Tipo de atención</label><select id="sanTipo"><option>Vacuna</option><option>Tratamiento</option><option>Desparasitación</option><option>Vitaminización</option><option>Revisión veterinaria</option><option>Otro</option></select></div>
-        <div class="campo"><label>Producto / medicamento</label><input id="sanProducto" placeholder="Nombre del producto"></div>
-        <div class="campo"><label>Dosis</label><input id="sanDosis" placeholder="Ej. 5 ml"></div>
-        <div class="campo"><label>Próxima fecha</label><input id="sanProxima" type="date"></div>
-        <div class="campo"><label>Responsable</label><input id="sanResponsable" placeholder="Nombre del responsable"></div>
-        <div class="campo completo"><label>Observaciones</label><textarea id="sanObs" rows="2"></textarea></div>
-        <div class="completo"><button class="boton" type="submit" id="guardarSan">Guardar atención</button></div>
-      </form>
-      <div id="msgSan" class="mensaje"></div>
-    </div>
-    <div class="panel" style="margin-top:18px">
-      <h2>Historial sanitario</h2>
-      <div class="tabla-contenedor">
-        <table>
-          <thead><tr><th>Animal</th><th>Fecha</th><th>Tipo</th><th>Producto</th><th>Dosis</th><th>Próxima fecha</th><th>Acción</th></tr></thead>
-          <tbody id="listaSanidad"><tr><td colspan="7">Cargando...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+  <section id="seccion-lotes" class="panel oculto"><h2>🐄 Lotes de crianza</h2><p class="muted">Clasificación automática por edad calculada desde la fecha de nacimiento.</p><h3>Terneras y terneros: 0 a 12 meses</h3><div class="tabla-contenedor"><table><thead><tr><th>Placa</th><th>Nombre</th><th>Sexo</th><th>Edad</th></tr></thead><tbody id="listaTerneras"></tbody></table></div><h3>Novillas: 12 a 24 meses</h3><div class="tabla-contenedor"><table><thead><tr><th>Placa</th><th>Nombre</th><th>Edad</th></tr></thead><tbody id="listaNovillas"></tbody></table></div></section>
+
+  <section id="seccion-alertas" class="panel oculto"><h2>📅 Próximos secados y prepartos</h2><p class="muted">Fechas calculadas a partir de la fecha de servicio. Son estimaciones y deben confirmarse con el veterinario.</p><h3>Próximas a secar (al cumplir 7 meses)</h3><div class="tabla-contenedor"><table><thead><tr><th>Vaca</th><th>Fecha estimada</th><th>Estado</th></tr></thead><tbody id="listaSecados"></tbody></table></div><h3>Próximas a preparto (al cumplir 8 meses)</h3><div class="tabla-contenedor"><table><thead><tr><th>Vaca</th><th>Fecha estimada</th><th>Estado</th></tr></thead><tbody id="listaPrepartos"></tbody></table></div></section>
+
+  <section id="seccion-sanidad" class="panel oculto">
+    <h2>Sanidad</h2>
+    <p>Este módulo se habilitará en una siguiente etapa.</p>
   </section>
 
   <section id="seccion-informes" class="panel oculto">
@@ -602,24 +559,26 @@ let animales = [];
 let animalEditando = null;
 let produccionEditando = null;
 let producciones = [];
-let registrosReproduccion = [];
-let registrosPartos = [];
-let registrosSanidad = [];
 
 function fechaLocal() {
   const ahora = new Date();
   const ajuste = ahora.getTimezoneOffset() * 60000;
-  return new Date(ahora.getTime() - ajuste).toISOString().slice(0,10);
+  return new Date(ahora.getTime() - ajuste)
+    .toISOString().slice(0,10);
 }
 
 function prepararProduccion() {
   porId("fechaLeche").value = fechaLocal();
+
   const selector = porId("animalLeche");
-  selector.innerHTML = '<option value="">Seleccionar animal</option>';
+  selector.innerHTML =
+    '<option value="">Seleccionar animal</option>';
+
   animales.forEach(animal => {
     const opcion = document.createElement("option");
     opcion.value = animal.id;
-    opcion.textContent = animal.arete + " - " + (animal.nombre || "Sin nombre");
+    opcion.textContent =
+      animal.arete + " - " + (animal.nombre || "Sin nombre");
     selector.appendChild(opcion);
   });
 }
@@ -627,14 +586,26 @@ function prepararProduccion() {
 async function cargarProduccion() {
   const lista = porId("listaProduccion");
   if (!lista) return;
-  lista.innerHTML = "<tr><td colspan='7'>Cargando producción...</td></tr>";
 
-  const {data,error} = await conexion.from("produccion_leche")
-    .select("id, animal_id, fecha, litros_manana, litros_tarde, total_litros, observaciones")
+  lista.innerHTML =
+    "<tr><td colspan='7'>Cargando producción...</td></tr>";
+
+  const {data,error} = await conexion
+    .from("produccion_leche")
+    .select(`
+      id,
+      animal_id,
+      fecha,
+      litros_manana,
+      litros_tarde,
+      total_litros,
+      observaciones
+    `)
     .order("fecha",{ascending:false});
 
   if (error) {
-    lista.innerHTML = "<tr><td colspan='7'>No se pudo cargar la producción.</td></tr>";
+    lista.innerHTML =
+      "<tr><td colspan='7'>No se pudo cargar la producción.</td></tr>";
     porId("mensajeProduccion").textContent = error.message;
     return;
   }
@@ -647,10 +618,13 @@ function mostrarProduccion() {
   const lista = porId("listaProduccion");
 
   if (!producciones.length) {
-    lista.innerHTML = "<tr><td colspan='7'>Todavía no hay producción registrada.</td></tr>";
+    lista.innerHTML =
+      "<tr><td colspan='7'>Todavía no hay producción registrada.</td></tr>";
   } else {
     lista.innerHTML = producciones.map(p => {
-      const total = Number(p.total_litros ?? (Number(p.litros_manana) + Number(p.litros_tarde)));
+      const total = Number(p.total_litros ??
+        (Number(p.litros_manana) + Number(p.litros_tarde)));
+
       const animal = animales.find(a => a.id === p.animal_id);
       return `
         <tr>
@@ -662,18 +636,28 @@ function mostrarProduccion() {
           <td><strong>${total.toFixed(2)} L</strong></td>
           <td>
             <div class="acciones-fila">
-              <button class="boton-pequeno" onclick="editarProduccion('${p.id}')">Editar</button>
-              <button class="boton-pequeno boton-eliminar" onclick="eliminarProduccion('${p.id}')">Eliminar</button>
+              <button class="boton-pequeno"
+                onclick="editarProduccion('${p.id}')">Editar</button>
+              <button class="boton-pequeno boton-eliminar"
+                onclick="eliminarProduccion('${p.id}')">Eliminar</button>
             </div>
           </td>
-        </tr>`;
+        </tr>
+      `;
     }).join("");
   }
 
   const hoy = fechaLocal();
   const registrosHoy = producciones.filter(p => p.fecha === hoy);
-  const manana = registrosHoy.reduce((s,p) => s + Number(p.litros_manana),0);
-  const tarde = registrosHoy.reduce((s,p) => s + Number(p.litros_tarde),0);
+
+  const manana = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_manana),0
+  );
+
+  const tarde = registrosHoy.reduce(
+    (s,p) => s + Number(p.litros_tarde),0
+  );
+
   const total = manana + tarde;
 
   porId("lecheHoy").textContent = total.toFixed(2) + " L";
@@ -684,8 +668,10 @@ function mostrarProduccion() {
 
 porId("formProduccion").addEventListener("submit", async evento => {
   evento.preventDefault();
+
   const boton = porId("guardarProduccion");
   const mensaje = porId("mensajeProduccion");
+
   boton.disabled = true;
   mensaje.textContent = "Guardando producción...";
 
@@ -703,23 +689,34 @@ porId("formProduccion").addEventListener("submit", async evento => {
     fecha:porId("fechaLeche").value,
     litros_manana:manana,
     litros_tarde:tarde,
-    observaciones:porId("observacionesLeche").value.trim() || null
+    observaciones:
+      porId("observacionesLeche").value.trim() || null
   };
 
   try {
     let resultado;
+
     if (produccionEditando) {
-      resultado = await conexion.from("produccion_leche").update(registro).eq("id",produccionEditando);
+      resultado = await conexion
+        .from("produccion_leche")
+        .update(registro)
+        .eq("id",produccionEditando);
     } else {
-      resultado = await conexion.from("produccion_leche").insert(registro);
+      resultado = await conexion
+        .from("produccion_leche")
+        .insert(registro);
     }
 
     if (resultado.error) throw resultado.error;
+
     mensaje.textContent = "¡Producción guardada correctamente!";
+
     produccionEditando = null;
     porId("formProduccion").reset();
     prepararProduccion();
+
     await cargarProduccion();
+
   } catch (error) {
     mensaje.textContent = "No se pudo guardar: " + error.message;
   } finally {
@@ -730,15 +727,20 @@ porId("formProduccion").addEventListener("submit", async evento => {
 function editarProduccion(id) {
   const p = producciones.find(registro => registro.id === id);
   if (!p) return;
+
   produccionEditando = id;
+
   prepararProduccion();
+
   porId("animalLeche").value = p.animal_id;
   porId("fechaLeche").value = p.fecha;
   porId("litrosManana").value = p.litros_manana;
   porId("litrosTarde").value = p.litros_tarde;
   porId("observacionesLeche").value = p.observaciones || "";
+
   porId("guardarProduccion").textContent = "Actualizar producción";
   porId("mensajeProduccion").textContent = "Editando registro.";
+
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -754,6 +756,8 @@ async function eliminarProduccion(id) {
   const p = producciones.find(registro => registro.id === id);
   if (!p) return;
 
+  if (!confirm("¿Deseas eliminar este registro de producción?")) return;
+
   const {error} = await conexion
     .from("produccion_leche")
     .delete()
@@ -766,6 +770,10 @@ async function eliminarProduccion(id) {
 
   alert("Registro eliminado correctamente.");
   await cargarProduccion();
+  llenarSelectoresRepro();
+  await cargarReproducciones();
+  await cargarPartos();
+  pintarLotes();
 }
 
 porId("fecha").textContent = new Date().toLocaleDateString("es-CO", {
@@ -827,9 +835,7 @@ async function mostrarAplicacion() {
 
   await cargarAnimales();
   prepararProduccion();
-  prepararSelectoresGanado();
   await cargarProduccion();
-  await cargarModulosGanaderos();
 }
 
 porId("cerrarSesion").addEventListener("click", async () => {
@@ -864,8 +870,6 @@ async function cargarAnimales() {
 
   animales = data || [];
   mostrarAnimales();
-  mostrarFichas();
-  prepararSelectoresGanado();
   prepararProduccion();
 }
 
@@ -905,249 +909,6 @@ function mostrarAnimales() {
   `).join("");
 }
 
-function mostrarFichas() {
-  const contenedor = porId("listaFichas");
-  if (!contenedor) return;
-
-  if (!animales.length) {
-    contenedor.innerHTML = '<p class="muted">Registra animales para crear sus fichas individuales.</p>';
-    return;
-  }
-
-  contenedor.innerHTML = animales.map(a => `
-    <article class="ficha-animal">
-      <div class="ficha-foto">
-        ${a.foto_url ? `<img src="${escapar(a.foto_url)}" alt="Fotografía de ${escapar(a.nombre || a.arete)}" onerror="this.parentElement.innerHTML='🐄'">` : '🐄'}
-      </div>
-      <div class="ficha-cuerpo">
-        <h3>${escapar(a.nombre || 'Sin nombre')}</h3>
-        <div class="muted">Arete: ${escapar(a.arete)}</div>
-        <div class="ficha-datos">
-          Raza: ${escapar(a.raza || 'No registrada')}<br>
-          Sexo: ${escapar(a.sexo || 'No registrado')}<br>
-          Peso: ${a.peso_kg ?? '—'} kg<br>
-          <span class="estado-etiqueta">${escapar(a.estado_productivo || 'Sin estado')}</span>
-        </div>
-        <div class="ficha-botones">
-          <button class="boton" onclick="verFicha('${a.id}')">Ver ficha completa</button>
-          <button class="boton-pequeno" onclick="editarAnimal('${a.id}')">Editar</button>
-        </div>
-      </div>
-    </article>
-  `).join('');
-}
-
-async function verFicha(id) {
-  const a = animales.find(x => x.id === id);
-  if (!a) return;
-
-  const panel = porId('detalleAnimal');
-
-  const [rep, partos, san] = await Promise.all([
-    conexion.from('reproduccion').select('*').eq('animal_id', id).order('fecha_servicio',{ascending:false}),
-    conexion.from('partos').select('*').eq('madre_id', id).order('fecha_parto',{ascending:false}),
-    conexion.from('sanidad').select('*').eq('animal_id', id).order('fecha',{ascending:false})
-  ]);
-
-  const nacimiento = a.fecha_nacimiento
-    ? new Date(a.fecha_nacimiento+'T00:00:00').toLocaleDateString('es-CO')
-    : 'No registrada';
-
-  panel.innerHTML = `
-    <div class="panel">
-      <div class="seccion-cabecera">
-        <div>
-          <h2>Ficha individual: ${escapar(a.nombre || a.arete)}</h2>
-          <p class="muted">Identificación ${escapar(a.arete)}</p>
-        </div>
-        <button class="boton boton-secundario" onclick="cerrarFicha()">Cerrar ficha</button>
-      </div>
-
-      <div class="detalle-grid">
-        <div class="dato-detalle"><small>Raza</small><strong>${escapar(a.raza || '—')}</strong></div>
-        <div class="dato-detalle"><small>Sexo</small><strong>${escapar(a.sexo || '—')}</strong></div>
-        <div class="dato-detalle"><small>Fecha de nacimiento</small><strong>${nacimiento}</strong></div>
-        <div class="dato-detalle"><small>Peso</small><strong>${a.peso_kg ?? '—'} kg</strong></div>
-        <div class="dato-detalle"><small>Estado productivo</small><strong>${escapar(a.estado_productivo || '—')}</strong></div>
-        <div class="dato-detalle"><small>Fecha de ingreso</small><strong>${a.fecha_ingreso || '—'}</strong></div>
-      </div>
-
-      <h3>Observaciones</h3>
-      <p>${escapar(a.observaciones || 'Sin observaciones registradas.')}</p>
-
-      <h3>Historial reproductivo (${rep.data?.length || 0})</h3>
-      ${rep.error ? '<p class="muted">Aún no se puede consultar el historial reproductivo.</p>' : (rep.data||[]).map(r=>`<p>${escapar(r.fecha_servicio)} · ${escapar(r.tipo_servicio)} · ${escapar(r.estado)}</p>`).join('') || '<p class="muted">Sin registros.</p>'}
-
-      <h3>Partos registrados (${partos.data?.length || 0})</h3>
-      ${partos.error ? '<p class="muted">Aún no se puede consultar el historial de partos.</p>' : (partos.data||[]).map(r=>`<p>${escapar(r.fecha_parto)} · Cría: ${escapar(r.arete_cria || 'Sin arete')} · ${escapar(r.estado_cria)}</p>`).join('') || '<p class="muted">Sin registros.</p>'}
-
-      <h3>Historial sanitario (${san.data?.length || 0})</h3>
-      ${san.error ? '<p class="muted">Aún no se puede consultar el historial sanitario.</p>' : (san.data||[]).map(r=>`<p>${escapar(r.fecha)} · ${escapar(r.tipo)} · ${escapar(r.producto || 'Sin producto')}</p>`).join('') || '<p class="muted">Sin registros.</p>'}
-    </div>
-  `;
-
-  panel.classList.remove('oculto');
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function cerrarFicha() {
-  porId('detalleAnimal').classList.add('oculto');
-}
-
-function prepararSelectoresGanado() {
-  ['repAnimal','partoMadre','sanAnimal'].forEach(id => {
-    const sel = porId(id);
-    if (!sel) return;
-    const actual = sel.value;
-    sel.innerHTML = '<option value="">Seleccionar animal</option>' +
-      animales.map(a => `<option value="${a.id}">${escapar(a.arete)} - ${escapar(a.nombre||'Sin nombre')}</option>`).join('');
-    if (actual) sel.value = actual;
-  });
-
-  ['repFecha','partoFecha','sanFecha'].forEach(id => {
-    if (porId(id) && !porId(id).value) porId(id).value = fechaLocal();
-  });
-}
-
-async function cargarModulo(tabla, tbody, columnas, orden) {
-  const el = porId(tbody);
-  if (!el) return;
-
-  const {data,error} = await conexion.from(tabla).select('*').order(orden,{ascending:false});
-
-  if (error) {
-    el.innerHTML = `<tr><td colspan="${columnas.length+1}">No se pudo cargar: ${escapar(error.message)}</td></tr>`;
-    return [];
-  }
-
-  const filas = data || [];
-
-  el.innerHTML = filas.length ? filas.map(r => {
-    const a = animales.find(x => x.id === (r.animal_id || r.madre_id));
-    const c = columnas.map(col =>
-      `<td>${escapar(col === 'animal' ? (a?.arete || '—') : r[col] || '—')}</td>`
-    ).join('');
-
-    return `<tr>${c}<td><button class="boton-pequeno boton-eliminar" onclick="eliminarRegistro('${tabla}','${r.id}')">Eliminar</button></td></tr>`;
-  }).join('') : `<tr><td colspan="${columnas.length+1}">No hay registros todavía.</td></tr>`;
-
-  return filas;
-}
-
-async function cargarModulosGanaderos() {
-  prepararSelectoresGanado();
-
-  registrosReproduccion = await cargarModulo(
-    'reproduccion','listaReproduccion',
-    ['animal','fecha_servicio','tipo_servicio','toro_semen','fecha_probable_parto','estado'],
-    'fecha_servicio'
-  ) || [];
-
-  registrosPartos = await cargarModulo(
-    'partos','listaPartos',
-    ['animal','fecha_parto','tipo_parto','arete_cria','sexo_cria','estado_cria'],
-    'fecha_parto'
-  ) || [];
-
-  registrosSanidad = await cargarModulo(
-    'sanidad','listaSanidad',
-    ['animal','fecha','tipo','producto','dosis','proxima_fecha'],
-    'fecha'
-  ) || [];
-}
-
-async function eliminarRegistro(tabla,id) {
-  if (!confirm('¿Deseas eliminar este registro?')) return;
-
-  const {error} = await conexion.from(tabla).delete().eq('id',id);
-
-  if (error) {
-    alert('No se pudo eliminar: ' + error.message);
-    return;
-  }
-
-  await cargarModulosGanaderos();
-}
-
-porId('formReproduccion').addEventListener('submit',async e => {
-  e.preventDefault();
-  const b = porId('guardarRep');
-  b.disabled = true;
-
-  const registro = {
-    animal_id:porId('repAnimal').value,
-    fecha_servicio:porId('repFecha').value,
-    tipo_servicio:porId('repTipo').value.trim(),
-    toro_semen:porId('repToro').value.trim() || null,
-    fecha_probable_parto:porId('repParto').value || null,
-    estado:porId('repEstado').value,
-    observaciones:porId('repObs').value.trim() || null
-  };
-
-  const {error} = await conexion.from('reproduccion').insert(registro);
-  porId('msgRep').textContent = error ? 'Error: ' + error.message : 'Registro reproductivo guardado.';
-
-  if (!error) {
-    porId('formReproduccion').reset();
-    prepararSelectoresGanado();
-    await cargarModulosGanaderos();
-  }
-  b.disabled = false;
-});
-
-porId('formParto').addEventListener('submit',async e => {
-  e.preventDefault();
-  const b = porId('guardarParto');
-  b.disabled = true;
-
-  const registro = {
-    madre_id:porId('partoMadre').value,
-    fecha_parto:porId('partoFecha').value,
-    tipo_parto:porId('partoTipo').value,
-    sexo_cria:porId('partoSexo').value || null,
-    arete_cria:porId('partoArete').value.trim() || null,
-    estado_cria:porId('partoEstado').value,
-    observaciones:porId('partoObs').value.trim() || null
-  };
-
-  const {error} = await conexion.from('partos').insert(registro);
-  porId('msgParto').textContent = error ? 'Error: ' + error.message : 'Parto guardado correctamente.';
-
-  if (!error) {
-    porId('formParto').reset();
-    prepararSelectoresGanado();
-    await cargarModulosGanaderos();
-  }
-  b.disabled = false;
-});
-
-porId('formSanidad').addEventListener('submit',async e => {
-  e.preventDefault();
-  const b = porId('guardarSan');
-  b.disabled = true;
-
-  const registro = {
-    animal_id:porId('sanAnimal').value,
-    fecha:porId('sanFecha').value,
-    tipo:porId('sanTipo').value,
-    producto:porId('sanProducto').value.trim() || null,
-    dosis:porId('sanDosis').value.trim() || null,
-    proxima_fecha:porId('sanProxima').value || null,
-    responsable:porId('sanResponsable').value.trim() || null,
-    observaciones:porId('sanObs').value.trim() || null
-  };
-
-  const {error} = await conexion.from('sanidad').insert(registro);
-  porId('msgSan').textContent = error ? 'Error: ' + error.message : 'Atención sanitaria guardada.';
-
-  if (!error) {
-    porId('formSanidad').reset();
-    prepararSelectoresGanado();
-    await cargarModulosGanaderos();
-  }
-  b.disabled = false;
-});
-
 function mostrarSeccion(nombre) {
   document.querySelectorAll("main > section[id^='seccion-']").forEach(seccion => {
     seccion.classList.add("oculto");
@@ -1165,22 +926,19 @@ function mostrarSeccion(nombre) {
     produccion:"Producción de leche",
     reproduccion:"Reproducción",
     partos:"Partos y terneros",
-    sanidad:"Sanidad y bienestar",
+    lotes:"Lotes de crianza",
+    alertas:"Próximos secados y prepartos",
+    sanidad:"Sanidad",
     informes:"Informes"
   };
 
   porId("tituloPagina").textContent = titulos[nombre] || "LA CRISTALINA";
 
-  if (nombre === "produccion") {
-    prepararProduccion();
-    cargarProduccion();
-  }
-
-  if (["reproduccion","partos","sanidad"].includes(nombre)) {
-    cargarModulosGanaderos();
-  }
+  if (nombre === "produccion") { prepararProduccion(); cargarProduccion(); }
+  if (nombre === "reproduccion" || nombre === "alertas") { llenarSelectoresRepro(); cargarReproducciones(); }
+  if (nombre === "partos") { llenarSelectoresRepro(); cargarPartos(); }
+  if (nombre === "lotes") { pintarLotes(); }
 }
-
 document.querySelectorAll(".menu a").forEach(enlace => {
   enlace.addEventListener("click", evento => {
     evento.preventDefault();
@@ -1222,9 +980,7 @@ function editarAnimal(id) {
   porId("estado").value = animal.estado_productivo || "No definido";
   porId("fechaIngreso").value = animal.fecha_ingreso || "";
   porId("observaciones").value = animal.observaciones || "";
-  porId("fotoUrl").value = animal.foto_url || "";
   porId("mensajeAnimal").textContent = "";
-
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -1247,17 +1003,21 @@ porId("formAnimal").addEventListener("submit", async evento => {
     peso_kg:peso === "" ? null : Number(peso),
     estado_productivo:porId("estado").value,
     fecha_ingreso:porId("fechaIngreso").value || null,
-    observaciones:porId("observaciones").value.trim() || null,
-    foto_url:porId("fotoUrl").value.trim() || null
+    observaciones:porId("observaciones").value.trim() || null
   };
 
   try {
     let resultado;
 
     if (animalEditando) {
-      resultado = await conexion.from("animales").update(registro).eq("id",animalEditando);
+      resultado = await conexion
+        .from("animales")
+        .update(registro)
+        .eq("id",animalEditando);
     } else {
-      resultado = await conexion.from("animales").insert(registro);
+      resultado = await conexion
+        .from("animales")
+        .insert(registro);
     }
 
     if (resultado.error) throw resultado.error;
@@ -1281,7 +1041,10 @@ async function eliminarAnimal(id) {
 
   if (!confirm("¿Deseas eliminar el animal con arete " + animal.arete + "?")) return;
 
-  const {error} = await conexion.from("animales").delete().eq("id",id);
+  const {error} = await conexion
+    .from("animales")
+    .delete()
+    .eq("id",id);
 
   if (error) {
     alert("No se pudo eliminar: " + error.message);
@@ -1292,9 +1055,31 @@ async function eliminarAnimal(id) {
   await cargarAnimales();
 }
 
+
+// ===== REPRODUCCIÓN, PARTOS Y LOTES =====
+let reproducciones = [];
+let partos = [];
+let reproduccionEditando = null;
+function sumarMeses(fecha, meses) { const d=new Date(fecha+'T12:00:00'); const dia=d.getDate(); d.setMonth(d.getMonth()+meses); if(d.getDate()<dia)d.setDate(0); return d.toISOString().slice(0,10); }
+function nombreAnimal(id) { const a=animales.find(x=>x.id===id); return a ? (a.arete+' - '+(a.nombre||'Sin nombre')) : 'Animal no encontrado'; }
+function llenarSelectoresRepro() {
+  const hembras=animales.filter(a=>a.sexo==='Hembra');
+  ['vacaRepro','madreParto'].forEach(id=>{const el=porId(id); if(!el)return; const actual=el.value; el.innerHTML='<option value="">Seleccionar hembra</option>'+hembras.map(a=>`<option value="${a.id}">${escapar(a.arete)} - ${escapar(a.nombre||'Sin nombre')}</option>`).join(''); if(actual)el.value=actual;});
+}
+async function cargarReproducciones(){const {data,error}=await conexion.from('reproduccion').select('*').order('fecha_servicio',{ascending:false}); if(error){porId('mensajeRepro').textContent='No se pudo cargar: '+error.message;return;} reproducciones=data||[]; pintarReproducciones();}
+function pintarReproducciones(){const el=porId('listaRepro'); if(!el)return; el.innerHTML=reproducciones.map(r=>`<tr><td>${escapar(nombreAnimal(r.animal_id))}</td><td>${r.fecha_servicio}</td><td>${escapar(r.estado)}</td><td>${escapar((r.codigo_toro||'')+' '+(r.nombre_toro||''))}</td><td>${sumarMeses(r.fecha_servicio,7)}</td><td>${sumarMeses(r.fecha_servicio,8)}</td><td>${sumarMeses(r.fecha_servicio,9)}</td><td><button class="boton-pequeno boton-eliminar" onclick="borrarRepro('${r.id}')">Eliminar</button></td></tr>`).join('')||'<tr><td colspan="8">No hay servicios registrados.</td></tr>'; pintarAlertas();}
+porId('formReproduccion').addEventListener('submit',async e=>{e.preventDefault();const b=porId('guardarRepro');b.disabled=true;const r={animal_id:porId('vacaRepro').value,fecha_servicio:porId('fechaServicio').value,estado:porId('estadoRepro').value,codigo_toro:porId('codigoToro').value.trim()||null,nombre_toro:porId('nombreToro').value.trim()||null,observaciones:porId('obsRepro').value.trim()||null};const {error}=await conexion.from('reproduccion').insert(r);b.disabled=false;if(error){porId('mensajeRepro').textContent='No se pudo guardar: '+error.message;return;}porId('mensajeRepro').textContent='Reproducción guardada.';porId('formReproduccion').reset();await cargarReproducciones();});
+async function borrarRepro(id){if(!confirm('¿Eliminar este servicio?'))return;const {error}=await conexion.from('reproduccion').delete().eq('id',id);if(error){alert(error.message);return;}await cargarReproducciones();}
+function cancelarRepro(){porId('formReproduccion').reset();porId('mensajeRepro').textContent='';}
+function pintarAlertas(){const validas=reproducciones.filter(r=>r.estado==='Confirmada');const hoy=fechaLocal();const sec=validas.map(r=>({r,fecha:sumarMeses(r.fecha_servicio,7)})).filter(x=>x.fecha>=hoy).sort((a,b)=>a.fecha.localeCompare(b.fecha));const pre=validas.map(r=>({r,fecha:sumarMeses(r.fecha_servicio,8)})).filter(x=>x.fecha>=hoy).sort((a,b)=>a.fecha.localeCompare(b.fecha));porId('listaSecados').innerHTML=sec.map(x=>`<tr><td>${escapar(nombreAnimal(x.r.animal_id))}</td><td>${x.fecha}</td><td>${x.fecha===hoy?'Hoy':'Pendiente'}</td></tr>`).join('')||'<tr><td colspan="3">Sin vacas próximas a secar.</td></tr>';porId('listaPrepartos').innerHTML=pre.map(x=>`<tr><td>${escapar(nombreAnimal(x.r.animal_id))}</td><td>${x.fecha}</td><td>${x.fecha===hoy?'Hoy':'Pendiente'}</td></tr>`).join('')||'<tr><td colspan="3">Sin vacas próximas a preparto.</td></tr>';}
+porId('destinoCria').addEventListener('change',()=>{const criar=porId('destinoCria').value==='Criar';porId('datosCria').classList.toggle('oculto',!criar);porId('nombreCria').required=criar;porId('placaCria').required=criar;});
+async function cargarPartos(){const {data,error}=await conexion.from('partos').select('*').order('fecha_parto',{ascending:false});if(error){porId('mensajeParto').textContent='No se pudo cargar: '+error.message;return;}partos=data||[];porId('listaPartos').innerHTML=partos.map(p=>`<tr><td>${p.fecha_parto}</td><td>${escapar(nombreAnimal(p.madre_id))}</td><td>${escapar(p.resultado)}</td><td>${escapar(p.destino)}</td><td>${escapar(p.nombre_cria||'—')}</td><td>${escapar(p.placa_cria||'—')}</td></tr>`).join('')||'<tr><td colspan="6">No hay partos registrados.</td></tr>';}
+porId('formParto').addEventListener('submit',async e=>{e.preventDefault();const destino=porId('destinoCria').value;const nombre=porId('nombreCria').value.trim();const placa=porId('placaCria').value.trim();if(destino==='Criar'&&(!nombre||!placa)){porId('mensajeParto').textContent='Para criar la cría debes ingresar nombre y placa.';return;}const registro={madre_id:porId('madreParto').value,fecha_parto:porId('fechaParto').value,resultado:porId('resultadoParto').value,destino,sexo_cria:porId('sexoCria').value,peso_cria:porId('pesoCria').value===''?null:Number(porId('pesoCria').value),nombre_cria:destino==='Criar'?nombre:null,placa_cria:destino==='Criar'?placa:null,observaciones:porId('obsParto').value.trim()||null};const {error}=await conexion.from('partos').insert(registro);if(error){porId('mensajeParto').textContent='No se pudo guardar: '+error.message;return;}if(destino==='Criar'&&porId('resultadoParto').value!=='Muerto'){const {error:errAnimal}=await conexion.from('animales').insert({arete:placa,nombre,raza:null,sexo:registro.sexo_cria,fecha_nacimiento:registro.fecha_parto,peso_kg:registro.peso_cria,estado_productivo:'Ternero',fecha_ingreso:registro.fecha_parto,observaciones:'Cría registrada desde parto'});if(errAnimal){porId('mensajeParto').textContent='Parto guardado, pero no se pudo agregar la cría al inventario: '+errAnimal.message;await cargarPartos();return;}}porId('mensajeParto').textContent='Parto guardado correctamente.';porId('formParto').reset();porId('datosCria').classList.add('oculto');await cargarPartos();await cargarAnimales();pintarLotes();});
+function edadMeses(fecha){if(!fecha)return null;const n=new Date();const d=new Date(fecha+'T12:00:00');return (n.getFullYear()-d.getFullYear())*12+n.getMonth()-d.getMonth()-(n.getDate()<d.getDate()?1:0);}
+function pintarLotes(){const jovenes=animales.filter(a=>a.sexo==='Hembra'&&edadMeses(a.fecha_nacimiento)!==null&&edadMeses(a.fecha_nacimiento)<12);const novillas=animales.filter(a=>a.sexo==='Hembra'&&edadMeses(a.fecha_nacimiento)>=12&&edadMeses(a.fecha_nacimiento)<24);const fila=a=>`<tr><td>${escapar(a.arete)}</td><td>${escapar(a.nombre||'—')}</td><td>${escapar(a.sexo||'—')}</td><td>${edadMeses(a.fecha_nacimiento)} meses</td></tr>`;porId('listaTerneras').innerHTML=jovenes.map(fila).join('')||'<tr><td colspan="4">No hay hembras de 0 a 12 meses.</td></tr>';porId('listaNovillas').innerHTML=novillas.map(a=>`<tr><td>${escapar(a.arete)}</td><td>${escapar(a.nombre||'—')}</td><td>${edadMeses(a.fecha_nacimiento)} meses</td></tr>`).join('')||'<tr><td colspan="3">No hay novillas de 12 a 24 meses.</td></tr>';}
+
 (async function iniciar() {
   const {data} = await conexion.auth.getSession();
-
   if (data.session) {
     await mostrarAplicacion();
   }
@@ -1303,5 +1088,3 @@ async function eliminarAnimal(id) {
 
 </body>
 </html>
-
-
